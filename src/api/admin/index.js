@@ -6,7 +6,8 @@ import { PageMovies } from './pages/Movies.js';
 import { PageCategories } from './pages/Categories.js';
 import { PageLogin } from './pages/Login.js';
 import { PageRegister } from './pages/Register.js';
-
+import { publicRouter } from './routes/publicRouter.js';
+import { publicApiRouter } from './routes/publicApiRouter.js';
 
 const app = express();
 
@@ -31,11 +32,9 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
     return res.send(new PageRegister().render());
 });
+app.use('/', publicRouter);
+app.use('/', publicApiRouter);
 
 app.get('*error', (req, res) => {
     return res.send(new PageError404().render());
-});
-
-app.listen(PORT, () => {
-    console.log(`WEB URL: http://localhost:${PORT}`);
 });
