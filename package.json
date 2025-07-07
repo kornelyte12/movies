@@ -5,15 +5,16 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-     "dev": "node --watch ./src/index.js --env=development",
-        "prod": "node --watch ./src/index.js --env=production",
-        "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node --watch ./src/index.js --env=development",
+    "prod": "node --watch ./src/index.js --env=production",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^17.0.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1"
   }
 }
