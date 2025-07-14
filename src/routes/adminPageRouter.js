@@ -13,7 +13,7 @@ export const adminPageRouter = express.Router();
 
 adminPageRouter.get('/', (req, res) => res.send(new PageDashboard(req).render()));
 
-adminPageRouter.get('/categories', (req, res) => res.send(new PageAdminCategories(req).render()));
+adminPageRouter.get('/categories', async (req, res) => res.send(await new PageAdminCategories(req).render()));
 adminPageRouter.get('/categories/published', (req, res) => res.send(new PageAdminCategoriesPublished(req).render()));
 adminPageRouter.get('/categories/draft', (req, res) => res.send(new PageAdminCategoriesDraft(req).render()));
 adminPageRouter.get('/categories/new', (req, res) => res.send(new PageAdminCategoriesNew(req).render()));
