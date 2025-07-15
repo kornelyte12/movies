@@ -1,10 +1,10 @@
-import { getCategoryByUrlSlug } from "../../../db/getCategoryByUrlSlug.js";
+import { getCategoryByUrlSlug } from "../../../db/admin/getCategoryByUrlSlug.js";
 import { AdminTemplate } from "../../../templates/AdminTemplate.js";
 
 export class PageAdminCategoriesEdit extends AdminTemplate {
     constructor(req) {
         super(req);
-        // this.pageJS = 'new-category';
+        this.pageJS = 'edit-category';
     }
 
     async main() {
@@ -23,6 +23,7 @@ export class PageAdminCategoriesEdit extends AdminTemplate {
                 <div class="container">
                     <div class="row">
                         <form class="col-12 col-md-9 col-lg-6">
+                            <input value="${category.url_slug}" type="text" id="original_url" hidden>
                             <div class="mb-3">
                                 <label for="title" class="form-label">Title</label>
                                 <input value="${category.title}" type="text" class="form-control" id="title" required>

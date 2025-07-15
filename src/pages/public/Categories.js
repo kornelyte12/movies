@@ -1,14 +1,20 @@
-import { categoriesData } from "../../data/categoriesData.js";
+import { getAllPublicCategories } from "../../db/public/getAllCategories.js";
 import { PageTemplate } from "../../templates/PageTemplate.js";
 import { categoriesListSection } from "../../ui/categoriesList.js";
 import { pageTitle } from "../../ui/pageTitle.js";
 
 export class PageCategories extends PageTemplate {
-    main() {
+    constructor(req) {
+        super(req);
+    }
+
+    async main() {
+        const data = await getAllPublicCategories();
+
         return `
             <main>
                 ${pageTitle('Categories')}
-                ${categoriesListSection(categoriesData)}
+                ${categoriesListSection(data)}
             </main>`;
     }
 }

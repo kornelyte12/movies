@@ -1,4 +1,4 @@
-import { getDraftCategories } from "../../../db/getDraftCategories.js";
+import { getDraftCategories } from "../../../db/admin/getDraftCategories.js";
 import { AdminTemplate } from "../../../templates/AdminTemplate.js";
 import { tableCategories } from "../../../ui/tables/tableCategories.js";
 
