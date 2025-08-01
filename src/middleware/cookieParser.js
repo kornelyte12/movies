@@ -1,19 +1,16 @@
 export function cookieParser(req, res, next) {
     req.cookies = {};
 
-    if (typeof req.headers.cookie !== 'string') {
+    const cookieStr = req.headers.cookie;
+    if (!cookieStr) {
         return next();
     }
 
-    const cookieParts = req.headers.cookie
+    const cookieParts = cookieStr
         .split(';')
-        .map(s => s.trim());
+        .map(s => s.trim().split('='));
 
-    for (const cookie of cookieParts) {
-        const splitIndex = cookie.indexOf('=');
-        const key = cookie.slice(0, splitIndex);
-        const value = cookie.slice(splitIndex + 1);
-
+    for (const [key, value] of cookieParts) {
         req.cookies[key] = value;
     }
 

@@ -1,4 +1,4 @@
-export function randomString(size = 20) {
+export function randomString(size = 10) {
     const abc = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let str = '';
 

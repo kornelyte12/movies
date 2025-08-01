@@ -1,13 +1,16 @@
+const alertDOM = document.getElementById('error');
 const formDOM = document.forms[0];
-const usernameOrEmailDOM = document.getElementById('username_or_email');
+const emailDOM = document.getElementById('email');
 const passwordDOM = document.getElementById('password');
 
 if (formDOM) {
-    formDOM.addEventListener('submit', (e) => {
-        e.preventDefault();
+    formDOM.addEventListener('submit', event => {
+        event.preventDefault();
+        alertDOM.classList.add('d-none');
+        alertDOM.innerText = '';
 
         const data = {
-            usernameOrEmail: usernameOrEmailDOM.value,
+            email: emailDOM.value,
             password: passwordDOM.value,
         };
 
@@ -18,12 +21,21 @@ if (formDOM) {
             },
             body: JSON.stringify(data),
         })
-            .then(res => res.json())
+            .then(data => data.json())
             .then(data => {
-                if (data.status === 'success' && data.action === 'redirect') {
-                    location.href = data.href;
+                if (data.status === 'error') {
+                    alertDOM.innerText = data.msg;
+                    alertDOM.classList.remove('d-none', 'alert-success');
+                    alertDOM.classList.add('alert-danger');
+                }
+                if (data.status === 'success') {
+                    alertDOM.innerText = data.msg;
+                    alertDOM.classList.remove('d-none', 'alert-danger');
+                    alertDOM.classList.add('alert-success');
+
+                    location.href = data.redirectTo;
                 }
             })
-            .catch(console.error);
+            .catch(err => console.log(err));
     });
 }

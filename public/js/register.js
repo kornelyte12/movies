@@ -1,18 +1,17 @@
+const alertDOM = document.getElementById('error');
 const formDOM = document.forms[0];
-const usernameDOM = document.getElementById('username');
 const emailDOM = document.getElementById('email');
 const passwordDOM = document.getElementById('password');
-const tosDOM = document.getElementById('tos');
 
 if (formDOM) {
-    formDOM.addEventListener('submit', (e) => {
-        e.preventDefault();
+    formDOM.addEventListener('submit', event => {
+        event.preventDefault();
+        alertDOM.classList.add('d-none');
+        alertDOM.innerText = '';
 
         const data = {
-            username: usernameDOM.value,
             email: emailDOM.value,
             password: passwordDOM.value,
-            tos: tosDOM.value,
         };
 
         fetch('/api/register', {
@@ -22,10 +21,21 @@ if (formDOM) {
             },
             body: JSON.stringify(data),
         })
-            .then(res => res.json())
+            .then(data => data.json())
             .then(data => {
-                console.log(data);
+                if (data.status === 'error') {
+                    alertDOM.innerText = data.msg;
+                    alertDOM.classList.remove('d-none', 'alert-success');
+                    alertDOM.classList.add('alert-danger');
+                }
+                if (data.status === 'success') {
+                    alertDOM.innerText = data.msg;
+                    alertDOM.classList.remove('d-none', 'alert-danger');
+                    alertDOM.classList.add('alert-success');
+
+                    location.href = '/login';
+                }
             })
-            .catch(console.error);
+            .catch(err => console.log(err));
     });
 }
